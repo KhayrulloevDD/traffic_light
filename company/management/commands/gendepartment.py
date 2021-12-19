@@ -1,4 +1,17 @@
-from django.core.management.base import BaseCommand, CommandError
+from random import choice
+import factory
+
+from django.core.management.base import BaseCommand
+from company.models import Department
+from faker.providers.company.en_US import Provider
+from faker import Faker
+
+
+class DepartmentFactory(factory.Factory):
+    class Meta:
+        model = Department
+
+    middle_name = factory.Faker('name')
 
 
 class Command(BaseCommand):
@@ -8,6 +21,9 @@ class Command(BaseCommand):
         parser.add_argument('number')
 
     def handle(self, *args, **options):
-        #  generate data
+        #  created rows
+        for _ in range(0, int(options['number'])):
+            user = DepartmentFactory()
+            user.save()
 
         self.stdout.write(f"generated {options['number']} departments")
