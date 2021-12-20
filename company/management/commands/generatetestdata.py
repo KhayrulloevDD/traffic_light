@@ -118,16 +118,17 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         #  create Clients
-        # users = ClientFactory.create_batch(2)
-        # User.objects.bulk_create(users)
+        users = ClientFactory.create_batch(CLIENTS_COUNT)
+        User.objects.bulk_create(users)
 
         #  create Departments
-        DepartmentFactory.create(client=get_random_clients())
         # TODO
+        # DepartmentFactory.create(client=get_random_clients())
         # Department.objects.bulk_create(departments)
 
         # #  create Juristic Persons
         # juristic_person = JuristicPersonFactory.create_batch(2)
         # JuristicPerson.objects.bulk_create(juristic_person)
 
-        self.stdout.write(f"generated {get_random_clients()} clients")
+        self.stdout.write(f"generated {CLIENTS_COUNT} clients, {DEPARTMENTS_COUNT} departments and "
+                          f"{JURISTIC_PERSONS_COUNT} juristic persons")
